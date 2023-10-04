@@ -8,11 +8,11 @@ namespace Hotel.API.Controllers
 
     [ApiController]
     [Route("api/bookings")]
-    public class BookinsController:ControllerBase
+    public class BookingsController:ControllerBase
     {
         private readonly DataContext _context;
 
-        public BookinsController(DataContext context)
+        public BookingsController(DataContext context)
         {
 
 

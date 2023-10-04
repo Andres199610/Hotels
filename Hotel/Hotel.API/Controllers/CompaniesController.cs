@@ -7,8 +7,10 @@ namespace Hotel.API.Controllers
 {
     [ApiController]
     [Route("api/companies")]
-    public class CompaniesController: ControllerBase
+    public class CompaniesController:ControllerBase
+
     {
+
         private readonly DataContext _context;
 
         public CompaniesController(DataContext context)
@@ -83,5 +85,7 @@ namespace Hotel.API.Controllers
 
 
         }
+
+
     }
 }

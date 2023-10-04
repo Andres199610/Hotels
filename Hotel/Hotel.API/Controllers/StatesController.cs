@@ -8,7 +8,7 @@ namespace Hotel.API.Controllers
 
     [ApiController]
     [Route("api/states")]
-    public class StatesController: ControllerBase
+    public class StatesController : ControllerBase
     {
 
 

@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.API.Controllers
 {
-
     [ApiController]
-    [Route("api/countries")]
-    public class RoomsController: ControllerBase
+    [Route("api/Rooms")]
+    public class RoomsController:ControllerBase
     {
         private readonly DataContext _context;
 
@@ -84,5 +83,6 @@ namespace Hotel.API.Controllers
 
 
         }
+
     }
 }

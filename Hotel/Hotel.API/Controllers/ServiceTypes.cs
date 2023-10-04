@@ -7,7 +7,7 @@ namespace Hotel.API.Controllers
 {
     [ApiController]
     [Route("api/servicetypes")]
-    public class ServiceTypesController: ControllerBase
+    public class ServiceTypesController : ControllerBase
     {
 
         private readonly DataContext _context;

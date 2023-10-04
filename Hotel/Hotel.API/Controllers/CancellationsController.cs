@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.API.Controllers
 {
-
     [ApiController]
     [Route("api/cancellations")]
-    public class CancellationsController: ControllerBase
+    public class CancellationsController : ControllerBase
     {
+
         private readonly DataContext _context;
 
         public CancellationsController(DataContext context)

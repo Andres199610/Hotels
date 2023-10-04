@@ -7,12 +7,11 @@ namespace Hotel.API.Controllers
 {
     [ApiController]
     [Route("api/roomimages")]
-    public class RommImagesController: ControllerBase
-
+    public class RoomImagesController:ControllerBase
     {
         private readonly DataContext _context;
 
-        public RommImagesController(DataContext context)
+        public RoomImagesController(DataContext context)
         {
 
 
