@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Web.Repositories
+namespace Hotel.WEB.Repositories
 {
     public class HttpResponseWrapper<T>
     {
@@ -24,22 +24,22 @@ namespace Web.Repositories
                 return null;
             }
 
-            var statusCode = HttpResponseMessage.StatusCode;
-            if (statusCode == HttpStatusCode.NotFound)
+            var codigoEstatus = HttpResponseMessage.StatusCode;
+            if (codigoEstatus == HttpStatusCode.NotFound)
             {
                 return "Recurso no encontrado";
             }
-            else if (statusCode == HttpStatusCode.BadRequest)
+            else if (codigoEstatus == HttpStatusCode.BadRequest)
             {
                 return await HttpResponseMessage.Content.ReadAsStringAsync();
             }
-            else if (statusCode == HttpStatusCode.Unauthorized)
+            else if (codigoEstatus == HttpStatusCode.Unauthorized)
             {
-                return "Tienes que logearte para hacer esta operación";
+                return " Debes loguearte para realizar esta acción";
             }
-            else if (statusCode == HttpStatusCode.Forbidden)
+            else if (codigoEstatus == HttpStatusCode.Forbidden)
             {
-                return "No tienes permisos para hacer esta operación";
+                return " No tienes permisos para ejecutar esta acción";
             }
 
             return "Ha ocurrido un error inesperado";
