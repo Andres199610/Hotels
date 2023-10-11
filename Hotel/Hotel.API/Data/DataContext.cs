@@ -34,13 +34,7 @@ namespace Hotel.API.Data
             modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
             modelBuilder.Entity<State>().HasIndex("CountryId", "Name").IsUnique();
             modelBuilder.Entity<City>().HasIndex("StateId", "Name").IsUnique();
-            modelBuilder.Entity<Room>().HasIndex("RoomId", "Name").IsUnique();
-            modelBuilder.Entity<Cancellation>().HasIndex("CancellationId", "Name").IsUnique();
-            modelBuilder.Entity<RoomImage>().HasIndex("RoomImageId", "Name").IsUnique();
-            modelBuilder.Entity<Company>().HasIndex("CompanyId", "Name").IsUnique();
-            modelBuilder.Entity<Booking>().HasIndex("BookingId", "Name").IsUnique();
-
-            modelBuilder.Entity<ServiceType>().HasIndex("ServiceTypeId", "Name").IsUnique();
+            
         }
 
     }
