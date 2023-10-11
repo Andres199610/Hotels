@@ -7,11 +7,45 @@
 @inject SweetAlertService swal
 
 
-<h3>Paises</h3>
+<h3>Reserva</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/bookings/create">Nueva reserva</a>
+    <a class="btn btn-primary" href="/bookings/create">Nuevo País</a>
 </div>
+
+<GenericList Mylist="Bookings">
+
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Reserva</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Bookings!)
+                {
+                    <tr>
+                        <td>
+                            @booking.Name
+                        </td>
+                        <td>
+                            <a href="/countries/edit/@booking.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(booking))>Borrar</button>
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </Body>
+
+</GenericList>
+
 
 
 @code {

@@ -1,0 +1,38 @@
+﻿@page "/servicetypes/create/{StateId:int}"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+
+
+<h3>Crear Servicio</h3>
+
+<ServiceTypeForm @ref="serviceTypeForm" ServiceType="serviceType" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+
+@code {
+    private ServiceType serviceType = new();
+    private ServiceTypeForm? serviceTypeForm;
+
+    [Parameter]
+    public int BookingId { get; set; }
+
+    private async Task CreateAsync()
+    {
+        serviceType.BookingId = BookingId;
+        var httpResponse = await repository.Post("/api/servicetypes", serviceType);
+        if (httpResponse.Error)
+        {
+            var message = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        Return();
+    }
+
+    private void Return()
+    {
+        serviceTypeForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo($"/bookings/details/{BookingId}");
+    }
+}

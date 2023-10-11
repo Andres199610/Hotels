@@ -1,0 +1,33 @@
+﻿@page "/bookins/create"
+
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear Reserva</h3>
+
+<BookingForm @ref="bookingForm" Booking="booking" OnSubmit="Create" ReturnAction="Return" />
+
+@code {
+    private Booking booking = new();
+
+    private BookingForm? bookingForm;
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.Post("/api/bookings", booking);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+        bookingForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo("/bookings");
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("/bookings");
+    }
+}
