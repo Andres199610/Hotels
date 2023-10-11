@@ -24,7 +24,7 @@ namespace Hotel.Shared.Entities
 
         public ICollection<ServiceType>? ServiceTypes { get; set; }
 
-        [Display(Name = "Ciudades")]
+        [Display(Name = "Servicio")]
         public int ServiceTypesNumber => ServiceTypes == null ? 0 : ServiceTypes.Count;
     }
 }

@@ -1,0 +1,33 @@
+﻿@page "/rooms/create"
+
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear Habitacion</h3>
+
+<RoomForm @ref="roomForm" Room="room" OnSubmit="Create" ReturnAction="Return" />
+
+@code {
+    private Room room  = new();
+
+    private RoomForm? roomForm;
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.Post("/api/rooms", room);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+        roomForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo("/rooms");
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("/rooms");
+    }
+}

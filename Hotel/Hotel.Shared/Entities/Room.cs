@@ -32,6 +32,10 @@ namespace Hotel.Shared.Entities
         [Display(Name = "Inventario")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public float Stock { get; set; }
+        public ICollection<Booking>? Bookings { get; set; }
+
+        [Display(Name = "Estados/Departamentos")]
+        public int BookingsNumber => Bookings == null ? 0 : Bookings.Count;
 
     }
 }

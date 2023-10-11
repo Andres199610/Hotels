@@ -1,0 +1,64 @@
+﻿@page "/cancellations/edit/{CancellationId:int}"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
+
+@using System.Net;
+
+<h3>Editar cancelacion</h3>
+
+@if (cancellation is null)
+{
+    <div class="spinner" />
+}
+else
+{
+    <CancellationForm @ref="cancellationForm" Cancellation="cancellation" OnValidSubmit="EditAsync" ReturnAction="Return" />
+}
+
+@code {
+    private Cancellation? cancellation;
+    private CancellationForm? cancellationForm;
+
+    [Parameter]
+    public int CancellationId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHttp = await repository.Get<Cancellation>($"/api/cancellations/{CancellationId}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/bookings");
+                return;
+            }
+
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        cancellation = responseHttp.Response;
+    }
+
+    private async Task EditAsync()
+    {
+        var responseHttp = await repository.Put("/api/cancellations", cancellation);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        Return();
+    }
+
+    private void Return()
+    {
+        cancellationForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo($"/states/details/{cancellation!.BookingId}");
+    }
+}

@@ -1,0 +1,38 @@
+﻿@page "/cancellations/create/{BookingId:int}"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+
+
+<h3>Crear Ciudad</h3>
+
+<CancellationForm @ref="cancellationForm" Cancellation="cancellation" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+
+@code {
+    private Cancellation cancellation = new();
+    private CancellationForm? cancellationForm;
+
+    [Parameter]
+    public int BookingId { get; set; }
+
+    private async Task CreateAsync()
+    {
+        cancellation.BookingId = BookingId;
+        var httpResponse = await repository.Post("/api/cancellations", cancellation);
+        if (httpResponse.Error)
+        {
+            var message = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        Return();
+    }
+
+    private void Return()
+    {
+        cancellationForm!.FormPostedSuccessfully = true;
+        navigationManager.NavigateTo($"/bookins/details/{BookingId}");
+    }
+}
