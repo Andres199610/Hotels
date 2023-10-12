@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Hotel.Shared\Hotel.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\RoomImages\" />
+  </ItemGroup>
+
 </Project>

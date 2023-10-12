@@ -7,10 +7,10 @@
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Tipo de servicio:</label>
+        <label>Compañia:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@ServiceType.Name" />
-            <ValidationMessage For="@(() => ServiceType.Name)" />
+            <InputText class="form-control" @bind-Value="@Company.Name" />
+            <ValidationMessage For="@(() => Company.Name)" />
         </div>
     </div>
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -22,7 +22,7 @@
 
     [Parameter]
     [EditorRequired]
-    public ServiceType ServiceType { get; set; } = null!;
+    public Company Company  { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]
@@ -36,7 +36,7 @@
 
     protected override void OnInitialized()
     {
-        editContext = new(ServiceType);
+        editContext = new(Company);
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

@@ -7,7 +7,7 @@
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Cuidad:</label>
+        <label>Cancelacion:</label>
         <div>
             <InputText class="form-control" @bind-Value="@Cancellation.Name" />
             <ValidationMessage For="@(() => Cancellation.Name)" />

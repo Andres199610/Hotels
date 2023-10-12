@@ -34,7 +34,7 @@ namespace Hotel.Shared.Entities
         public float Stock { get; set; }
         public ICollection<Booking>? Bookings { get; set; }
 
-        [Display(Name = "Estados/Departamentos")]
+        [Display(Name = "Reserva")]
         public int BookingsNumber => Bookings == null ? 0 : Bookings.Count;
 
     }

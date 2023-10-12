@@ -1,39 +1,39 @@
-﻿@page "/bookings"
+﻿@page "/companies"
 
-
-
+@using Hotel.WEB.Repositories
+@using Hotel.Shared
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 
 
-<h3>Reserva</h3>
+<h3>Compañia</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/bookings/create">Nueva reserva</a>
+    <a class="btn btn-primary" href="/companies/create">Nuevo Hotel</a>
 </div>
 
-<GenericList Mylist="Bookings">
+<GenericList Mylist="Companies">
 
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Reserva</th>
+                    <th>País</th>
                     <th></th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (var booking in Bookings!)
+                @foreach (var company in Companies!)
                 {
                     <tr>
                         <td>
-                            @booking.Name
+                            @company.Name
                         </td>
                         <td>
-                            <a href="/bookings/edit/@booking.Id" class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(booking))>Borrar</button>
+                            <a href="/countries/edit/@company.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(company))>Borrar</button>
 
                         </td>
 
@@ -48,8 +48,10 @@
 
 
 
+
+
 @code {
-    public List<Booking>? Bookings { get; set; }
+    public List<Company>? Companies { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -58,11 +60,11 @@
 
     private async Task Load()
     {
-        var responseHppt = await repository.Get<List<Booking>>("api/bookings");
-        Bookings = responseHppt.Response!;
+        var responseHppt = await repository.Get<List<Company>>("api/companies");
+        Companies = responseHppt.Response!;
     }
 
-    private async Task Delete(Booking booking)
+    private async Task Delete(Company company)
     {
         var result = await swal.FireAsync(new SweetAlertOptions
             {
@@ -79,7 +81,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/bookings/{booking.Id}");
+        var responseHTTP = await repository.Delete($"api/countries/{company.Id}");
 
         if (responseHTTP.Error)
         {

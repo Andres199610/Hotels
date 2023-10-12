@@ -1,46 +1,48 @@
-﻿@page "/rooms/details/{Id:int}"
+﻿@page "/companies/details/{Id:int}"
+
+
 
 @using System.Net;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService sweetAlertService
 
-@if (room is null)
+@if (company is null)
 {
     <div class="spinner" />
 }
 else
 {
-    <h3>@room.Name</h3>
+    <h3>@company.Name</h3>
     <div class="mb-2">
-        <a class="btn btn-primary" href="/bookins/create/@room.Id">Nueva Reserva</a>
-        <a class="btn btn-success" href="/rooms">Regresar</a>
+        <a class="btn btn-primary" href="/rooms/create/@company.Id">Nuevo Estado/Departamento</a>
+        <a class="btn btn-success" href="/companies">Regresar</a>
     </div>
 
-    <GenericList Mylist="bookings">
+    <GenericList Mylist="rooms">
         <Body>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Estado / Departamento</th>
-                        <th>Ciudades</th>
+                        <th>Hotel</th>
+                        <th>Habitacion</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var booking in bookings!)
+                    @foreach (var room in rooms!)
                     {
                         <tr>
                             <td>
-                                @booking.Name
+                                @room.Name
                             </td>
                             <td>
-                                @booking.ServiceTypesNumber
+                                @room.Name
                             </td>
                             <td>
-                                <a class="btn btn-info" href="/rooms/details/@booking.Id">Detalles</a>
-                                <a class="btn btn-warning" href="/rooms/edit/@booking.Id">Editar</a>
-                                <button class="btn btn-danger" @onclick=@(() => DeleteAsync(booking.Id))>Borrar</button>
+                                <a class="btn btn-info" href="/states/details/@room.Id">Detalles</a>
+                                <a class="btn btn-warning" href="/states/edit/@room.Id">Editar</a>
+                                <button class="btn btn-danger" @onclick=@(() => DeleteAsync(room.Id))>Borrar</button>
                             </td>
                         </tr>
                     }
@@ -49,10 +51,9 @@ else
         </Body>
     </GenericList>
 }
-
 @code {
-    private Room? room;
-    private List<Booking>? bookings;
+    private Company? company;
+    private List<Room>? rooms;
 
     [Parameter]
     public int Id { get; set; }
@@ -64,12 +65,12 @@ else
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.Get<Room>($"/api/rooms/{Id}");
+        var responseHttp = await repository.Get<Company>($"/api/companies/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("/rooms");
+                navigationManager.NavigateTo("/companies");
                 return;
             }
 
@@ -78,8 +79,8 @@ else
             return;
         }
 
-        room = responseHttp.Response;
-        bookings = room!.Bookings!.ToList();
+        company = responseHttp.Response;
+        rooms = company!.Rooms!.ToList();
     }
 
     private async Task DeleteAsync(int id)
@@ -100,7 +101,7 @@ else
             return;
         }
 
-        var responseHttp = await repository.Delete($"/api/bookings/{id}");
+        var responseHttp = await repository.Delete($"/api/rooms/{id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode != HttpStatusCode.NotFound)
