@@ -1,11 +1,12 @@
 ﻿using Hotel.Shared.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
 namespace Hotel.API.Data
 {
-    public class DataContext:DbContext
+    public class DataContext: IdentityDbContext<User>
 
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)

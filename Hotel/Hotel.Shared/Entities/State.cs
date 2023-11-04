@@ -17,13 +17,14 @@ namespace Hotel.Shared.Entities
         public int CountryId { get; set; }
         [JsonIgnore]
 
-        public Country Country { get; set; }
+        public Country Country { get; set; }= null!;
         [JsonIgnore]
 
         public ICollection<City>? Cities { get; set; }
 
         [Display(Name = "Ciudades")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
+
 
     }
 }
