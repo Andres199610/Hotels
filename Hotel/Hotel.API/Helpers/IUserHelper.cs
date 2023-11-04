@@ -1,4 +1,5 @@
-﻿using Hotel.Shared.Entities;
+﻿using Hotel.Shared.DTOs;
+using Hotel.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hotel.API.Helpers
@@ -16,6 +17,9 @@ namespace Hotel.API.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task<SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
     }
 
 }
