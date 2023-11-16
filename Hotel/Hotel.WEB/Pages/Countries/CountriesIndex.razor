@@ -2,11 +2,12 @@
 
 @using Hotel.WEB.Repositories
 @using Hotel.Shared
+@using Microsoft.AspNetCore.Authorization;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 @inject SweetAlertService sweetAlertService
-
+@attribute [Authorize(Roles = "Admin")]
 <h3>Paises</h3>
 
 <div class="mb-3">
