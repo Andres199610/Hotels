@@ -1,5 +1,5 @@
-﻿ @page "/logout"
-@using Hotel.WEB.Auth;
+﻿@page "/logout"
+@using Hotel.WEB.Auth
 @inject ILoginService loginService
 @inject NavigationManager navigationManager
 
@@ -12,3 +12,4 @@
         navigationManager.NavigateTo("/");
     }
 }
+

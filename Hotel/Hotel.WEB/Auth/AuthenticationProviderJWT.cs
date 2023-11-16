@@ -62,4 +62,5 @@ namespace Hotel.WEB.Auth
             NotifyAuthenticationStateChanged(Task.FromResult(_anonimous));
         }
     }
+
 }
