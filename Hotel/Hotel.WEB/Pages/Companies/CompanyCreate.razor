@@ -6,7 +6,7 @@
 
 <h3>Crear Hotel</h3>
 
-<CompanyForm @ref="companyForm" Company="company" OnSubmit="Create" ReturnAction="Return" />
+<CompanyForm @ref="companyForm" Company="company" OnValidSubmit="Create" ReturnAction="Return" />
 @code {
     private Company company = new();
 
